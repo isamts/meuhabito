@@ -4,8 +4,9 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // IMPORTANTE: O base deve corresponder exatamente ao nome do repositório no GitHub
-  base: '/meuhabito/', 
+  // Usar './' garante que os caminhos dos assets sejam relativos ao index.html,
+  // funcionando em qualquer subdiretório (ex: /meuhabito/ ou localmente)
+  base: './', 
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
