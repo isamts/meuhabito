@@ -150,12 +150,14 @@
     <script type="module">
         import { GoogleGenAI } from "@google/genai";
 
-        // --- Configuration ---
-        // NOTE: In a pure HTML file, process.env is not available. 
-        // Ideally, you would inject this or prompt for it.
-        // For this demo to work, we handle the case gracefully.
-        const API_KEY = window.process?.env?.API_KEY || ''; 
-        
+        // -------------------------------------------------------------------------
+        // 🔑 CONFIGURAÇÃO DA API
+        // Cole sua chave da API do Google Gemini (AI Studio) dentro das aspas abaixo.
+        // Exemplo: const API_KEY = "AIzaSy...";
+        // -------------------------------------------------------------------------
+        const API_KEY = ""; 
+        // -------------------------------------------------------------------------
+
         let ai = null;
         if (API_KEY) {
             try {
@@ -239,7 +241,7 @@
         // --- AI Service ---
         const aiService = {
             async getQuote() {
-                if (!ai) return "Adicione sua API Key para receber inspiração mágica!";
+                if (!ai) return "Adicione sua API Key no código (index.html) para receber inspiração mágica!";
                 
                 const names = state.habits.map(h => h.name).join(", ");
                 const prompt = `
@@ -311,6 +313,14 @@
             closeModal() {
                 document.getElementById('habit-modal').classList.add('hidden');
                 document.getElementById('habit-name').value = '';
+            },
+
+            // --- Common Footer Renderer ---
+            renderFooter(container) {
+                const footer = document.createElement('div');
+                footer.className = "mt-12 text-center pb-4 animate-fade-in";
+                footer.innerHTML = '<p class="text-xs font-medium text-pink-400/70">Feito por Isadora Matos 💖</p>';
+                container.appendChild(footer);
             },
 
             render() {
@@ -391,6 +401,9 @@
                     });
                 }
                 container.appendChild(list);
+                
+                // Add Footer
+                this.renderFooter(container);
             },
 
             renderCalendar(container) {
@@ -446,6 +459,9 @@
                     }
                     grid.appendChild(btn);
                 }
+                
+                // Add Footer
+                this.renderFooter(container);
             },
 
             renderStats(container) {
@@ -495,6 +511,9 @@
                         </div>
                     </div>
                 `;
+                
+                // Add Footer
+                this.renderFooter(container);
             }
         };
 
